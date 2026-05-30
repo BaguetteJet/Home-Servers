@@ -81,6 +81,18 @@ systemctl --user restart paper-mc-geyser.service
 
 ### Server Config
 
+.. plugins > Geyser-Spigot > config.yml
+
+change ```clone-remote-port``` from ```false``` to ```true```
+
+```bash
+# Network settings for the Bedrock listener
+bedrock:
+  address: 0.0.0.0
+  port: 19132
+  clone-remote-port: true
+  #      CHANGE THS  ^ ^ ^ 
+```
 
 
 ### Whitelist
