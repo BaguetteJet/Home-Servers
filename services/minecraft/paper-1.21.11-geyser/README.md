@@ -81,32 +81,53 @@ systemctl --user restart paper-mc-geyser.service
 
 ### Server Config
 
-.. plugins > Geyser-Spigot > config.yml
+#### .. server.properties
 
-change ```clone-remote-port``` from ```false``` to ```true``` to use same ports
+Change motd, view and simulation distance
+
+```bash
+motd=Hello
+simulation-distance=6
+view-distance=16
+```
+
+#### .. plugins > Geyser-Spigot > config.yml
+
+Change ```clone-remote-port``` from ```false``` to ```true``` to use same ports
 
 ```bash
 # Network settings for the Bedrock listener
 bedrock:
   address: 0.0.0.0
-  port: 19132
-  clone-remote-port: true
-  # CHANGE THS  ^ ^ ^ 
+  port: 19132 # don't change
+  clone-remote-port: true # CHANGE
 ```
 
-also change ```auth-type``` from ```online``` to ```floodgate``` to allow Bedrock players to not need to log in
+Also change ```auth-type``` from ```online``` to ```floodgate``` to allow Bedrock players to not need to log in
 ```bash
 java:
-  auth-type: floodgate
-  # CHANGE THS  ^ ^ ^ 
+  auth-type: floodgate # CHANGE
 ```
 
+#### server console
 
-### Whitelist
+Use Cunky to generate chunks in advance to reduce lag
+```bash
+Chunky radius 2000
+Chunky start
+```
 
-Open container logs and console
+Add whitelist
+```bash
+whitelist add PLAYERNAME
+whitelist on
+```
 
-Cockpit > Podman Containers > paper-mc-geyser
+OP player
+```bash
+op PLAYERNAME
+```
+
 
 ### Required Plugins
 
