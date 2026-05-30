@@ -83,7 +83,7 @@ systemctl --user restart paper-mc-geyser.service
 
 .. plugins > Geyser-Spigot > config.yml
 
-change ```clone-remote-port``` from ```false``` to ```true```
+change ```clone-remote-port``` from ```false``` to ```true``` to use same ports
 
 ```bash
 # Network settings for the Bedrock listener
@@ -91,7 +91,14 @@ bedrock:
   address: 0.0.0.0
   port: 19132
   clone-remote-port: true
-  #      CHANGE THS  ^ ^ ^ 
+  # CHANGE THS  ^ ^ ^ 
+```
+
+also change ```auth-type``` from ```online``` to ```floodgate``` to allow Bedrock players to not need to log in
+```bash
+java:
+  auth-type: floodgate
+  # CHANGE THS  ^ ^ ^ 
 ```
 
 
