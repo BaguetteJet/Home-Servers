@@ -109,6 +109,34 @@ java:
   auth-type: floodgate # CHANGE
 ```
 
+#### .. plugins > Essentials > config.yml
+
+Update config
+
+```bash
+notify-no-new-mail: false
+player-commands:
+  - afk
+  - afk.auto
+  - delhome
+  - home
+  - msg
+  - ping
+  - rules
+  - sethome
+  - time
+  - tpa
+  - tpaccept
+  - tpahere
+  - tpdeny
+  - hat
+use-bukkit-permissions: false
+sethome-multiple:
+  default: 1
+  vip: 5
+  staff: 10
+```
+
 #### server console
 
 Use Cunky to generate chunks in advance to reduce lag
