@@ -19,9 +19,9 @@ Select network adapter > edit IPv4
 Change Automatic DHCP to Manual
 
 ```
-Subnet:             192.186.1.0/24
-Address:            192.186.1.222
-Gateway:            192.186.1.1
+Subnet:             192.168.1.0/24
+Address:            192.168.1.222
+Gateway:            192.168.1.1
 Name servers:       8.8.8.8, 8.8.4.4
 Search domains:
 ```
