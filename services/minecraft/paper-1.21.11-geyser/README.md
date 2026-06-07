@@ -29,7 +29,7 @@ Alternatively
 
 Create directory for navidrome
 ```bash
-mkdir ~/hytale-server/hytale
+mkdir ~/minecraft-servers/paper-mc-geyser
 ```
 
 Create quadlet
@@ -81,13 +81,81 @@ systemctl --user restart paper-mc-geyser.service
 
 ### Server Config
 
+#### .. server.properties
 
+Change motd, view and simulation distance
 
-### Whitelist
+```bash
+motd=Hello
+simulation-distance=6
+view-distance=16
+```
 
-Open container logs and console
+#### .. plugins > Geyser-Spigot > config.yml
 
-Cockpit > Podman Containers > paper-mc-geyser
+Change ```clone-remote-port``` from ```false``` to ```true``` to use same ports
+
+```bash
+# Network settings for the Bedrock listener
+bedrock:
+  address: 0.0.0.0
+  port: 19132 # don't change
+  clone-remote-port: true # CHANGE
+```
+
+Also change ```auth-type``` from ```online``` to ```floodgate``` to allow Bedrock players to not need to log in
+```bash
+java:
+  auth-type: floodgate # CHANGE
+```
+
+#### .. plugins > Essentials > config.yml
+
+Update config
+
+```bash
+notify-no-new-mail: false
+player-commands:
+  - afk
+  - afk.auto
+  - delhome
+  - home
+  - msg
+  - ping
+  - rules
+  - sethome
+  - time
+  - tpa
+  - tpaccept
+  - tpahere
+  - tpdeny
+  - hat
+use-bukkit-permissions: false
+sethome-multiple:
+  default: 1
+  vip: 5
+  staff: 10
+```
+
+#### server console
+
+Use Cunky to generate chunks in advance to reduce lag
+```bash
+Chunky radius 2000
+Chunky start
+```
+
+Add whitelist
+```bash
+whitelist add PLAYERNAME
+whitelist on
+```
+
+OP player
+```bash
+op PLAYERNAME
+```
+
 
 ### Required Plugins
 
