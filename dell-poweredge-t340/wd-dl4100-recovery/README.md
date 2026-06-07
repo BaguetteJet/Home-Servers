@@ -1,16 +1,18 @@
 # WD DL4100 RAID Data Recovery
 
-WD My Cloud DL4100 NAS device has failed due to the Intel Atom C2000 flaw known as AVR54. The NAS contained 4x 2TB HDD drives running linux based RAID 10 configuraion. 
+[WD My Cloud DL4100](https://support-en.wd.com/app/products/product-detailweb/p/128) NAS device has failed due to a critical Intel Atom C2000 flaw known as AVR54. 
 
-I wanted 
+The NAS contained 4x 2TB HDD drives in a RAID 10 configuraion. 
+
+I wanted recover the old data from these drives before repurposing them for personal storage.
 
 ## 1. Prepare For Recovery
 
-Using Dell PowerEdge T340 
+Using [Dell PowerEdge T340](../README.md)
 
 Insert 4x HDDs into available bays
 
-You must set the PERC controller to HBA mode or set each disk to Non-RAID before booting to avoid the controller overwriting mdadm metadata or causing disks to be unavailable in Ubuntu Server.
+Set PERC controller to HBA mode or set each disk to Non-RAID before booting. Failing to do so, the controller may overwrite mdadm metadata and disks won't be visible in Ubuntu Server. Follow these steps:
 
 - Press F2 during boot to enter BIOS
 
@@ -18,14 +20,14 @@ You must set the PERC controller to HBA mode or set each disk to Non-RAID before
 
 - For each drive select Operation > Convert to Non-RAID
 
-- Each drive should show Status Non-RAID
+- Each drive should now show Status Non-RAID
 
-Install Ubuntu Server OS on device or run temporarily from a flashed USB
+[Install Ubuntu Server](../../system/os/README.md) on device or run from USB
 
 Boot into Ubuntu Server
 
 ## 2. Raw Drive Info
-Information about available drives and their partitions
+Read information about available drives and their partitions
 ```bash
 lsblk
 ```
@@ -94,8 +96,10 @@ Each disk contains
 | 3 | 1GB | Swap | |
 | 4 | 1GB | Config/logs | |
 
+Only the **User Data** partition is relevant, the others may be ignored.
+
 ## 3. Verify Arrays
-See if the kernel can automatically detects array partitions
+Verify if the kernel can automatically detect array partitions
 ```bash
 cat /proc/mdstat
 ```
@@ -117,14 +121,14 @@ md127 : active (auto-read-only) raid1 sdd1[2] sdb1[0] sdc1[1] sde1[3]
 unused devices: <none>
 ```
 
-## 3 Access Data
+## Temporary Access
 
 Create mount point
 ```bash
 sudo mkdir -p /mnt/wd
 ```
 
-Mount to folder
+Mount array to folder
 ```bash
 sudo mount /dev/md126 /mnt/wd
 ```
@@ -156,7 +160,7 @@ Rebuild initramfs to read this config during the early boot process
 sudo update-initramfs -u
 ```
 
-Get the array's UUID
+Get the array UUID
 ```bash
 sudo blkid /dev/md/1_0
 ```

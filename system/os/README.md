@@ -4,7 +4,7 @@ Following guide: [Ubuntu Server: Getting started with a Linux Server](https://yo
 
 Flash [Ubuntu Server 24.04 LTS](https://ubuntu.com/download/server) onto usb stick
 
-Plug usb stick into machine and enter boot menu
+Plug USB stick into machine and enter boot menu
 
 Select install Ubuntu Server
 
@@ -52,3 +52,9 @@ Reboot now
 ## Automatic updates
 
 See [how to setup automatic updates](../../maintenance/README.md)
+
+## Running OS from USB
+
+Continue as far as storage configuration
+
+Stop and press ```Ctrl``` + ```Alt``` + ```F2``` to open shell
