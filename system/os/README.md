@@ -1,8 +1,6 @@
-# Initial Setup
+# Ubuntu Server OS
 
 Following guide: [Ubuntu Server: Getting started with a Linux Server](https://youtu.be/2Btkx9toufg?si=N1MSE7QlsCTECE61)
-
-## OS Install
 
 Flash [Ubuntu Server 24.04 LTS](https://ubuntu.com/download/server) onto usb stick
 
@@ -12,7 +10,7 @@ Select install Ubuntu Server
 
 Continue...
 
-### Netwrok connections
+## Netwrok connections
 
 Select network adapter > edit IPv4
 
@@ -28,13 +26,22 @@ Search domains:
 
 Continue...
 
-### Storage configuration
+## Storage configuration
 
-I chose to dual booting with Windows 11 so I created a new partition though Windows formatted as EXT4
+### Machine 01 - Optiplex 5080
+Dual boot with Windows 11 so I created a new partition though Windows formatted as EXT4
 
-Custom storage layout > select partition
+(X) Custom storage layout
+
+### Machine 02 - Poweredge T340
+
+(X) Use an entire disk
+
+[ ] Set up this disk as an LVM group
 
 Continue...
+
+## Open SSH
 
 Install OpenSSH to run headless
 

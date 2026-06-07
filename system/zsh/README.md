@@ -40,10 +40,7 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 # TAB to next suggestion word
 bindkey '^I' forward-word
 
-# Load alias from bash
-if [ -f ~/.bashrc ]; then
-  eval "$(grep -E "^alias " ~/.bashrc)"
-fi
+# Alias go here
 ```
 
 Enter zsh
@@ -60,6 +57,26 @@ Set as default
 ```bash
 chsh -s $(which zsh)
 ```
+
+## Add Alias
+Add to bottom of config
+```bash
+nano ~/.zshrc
+source ~/.zshrc
+```
+
+### List of Alias
+```bash
+# Basic computer temps (OPTIPLEX 5080) (install lm-sensors)
+alias temps='s=$(sensors); echo "CPU:  $(echo "$s" | grep Package | awk "{print \$4}")"; echo "NVMe: $(echo "$s" | grep Composite | awk "{print \$2}")"; echo "Fan:  $(echo "$s" | grep fan1 | awk "{print \$2, \$3}")"'
+
+# Basic computer temps (POWEREDGE T340) (install lm-sensors)
+alias temps='s=$(sensors); cpu=$(echo "$s" | awk "/Package id 0/ {print \$4}"); pch=$(echo "$s" | awk "/temp1/ {print \$2}"); echo "CPU: $cpu"; echo "PCH: $pch"'
+
+# Ollama prefix for commands into container
+alias ollama='podman exec -it ollama ollama'
+```
+
 
 ## Back to bash?
 Enter zsh

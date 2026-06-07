@@ -23,6 +23,12 @@ Enable and start service
 sudo systemctl enable --now cockpit.socket
 ```
 
+## Resource History
+```bash
+sudo apt install cockpit-pcp
+sudo systemctl restart cockpit
+```
+
 ## Podman intergration
 Highly recommended! It makes managing images and containers so easy. You can stop/start/restart containers, access termimals, view logs and resource usage.
 ```bash
@@ -46,3 +52,7 @@ sudo systemctl restart cockpit
     Services - manage systemd services   
 
     Terminal - accessible even on your phone
+
+## Add devices
+
+You can manage multiple machines though the same dashboard by adding them in the top left corner. 

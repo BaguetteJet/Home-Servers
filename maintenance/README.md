@@ -102,6 +102,7 @@ As of 16/05/2026 I have switched to Z shell but still import alias from .bashrc
 
 #### List of Alias
 ```bash
+# Alias
 # Basic computer temps
 alias temps='s=$(sensors); echo "CPU:  $(echo "$s" | grep Package | awk "{print \$4}")"; echo "NVMe: $(echo "$s" | grep Composite | awk "{print \$2}")"; echo "Fan:  $(echo "$s" | grep fan1 | awk "{print \$2, \$3}")"'
 # Ollama prefix for commands into container

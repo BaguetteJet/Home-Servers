@@ -13,7 +13,3 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 bindkey '^I' forward-word
-
-if [ -f ~/.bashrc ]; then
-  eval "$(grep -E "^alias " ~/.bashrc)"
-fi

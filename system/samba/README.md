@@ -59,9 +59,8 @@ sudo ufw allow samba
 
 Create user account and password
 ```bash
-sudo smbpasswd -a <user>
+sudo smbpasswd -a $USER
 ```
-- replace ```<user>``` with your linux user
 
 On Windows device on the same network
 1. File Explorer > right click This PC > Map network drive...
