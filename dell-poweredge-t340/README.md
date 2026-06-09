@@ -4,6 +4,8 @@ Machine 02 - 2026-05-30
 
 The Dell PowerEdge T340 is a robust, enterprise-grade tower server designed for high availability, massive storage capacity, and continuous uptime.
 
+https://www.dell.com/support/product-details/en-ie/product/poweredge-t340/
+
 ## Hardware
 
 | Component | Description | Specification |
