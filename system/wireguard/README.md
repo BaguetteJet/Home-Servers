@@ -1,7 +1,22 @@
 # Wireguard
 WireGuard is a fast, simple, and secure VPN protocol. It creates encrypted tunnels between peers (devices) using public and private key pairs. WireGuard operates over UDP only.
 
-I use it on my server to securely access my home network from anywhere. It allows me to use all local network services without exposing them directly to the internet.
+Each device has a private key (secret, never shared) and a public key (shared with peers). Only devices with matching keys can communicate. AllowedIPs controls what traffic is routed through the tunnel and which IPs are trusted from each peer. ```/32``` means a single IP, ```/24``` means the whole subnet (10.0.0.0–255). 
+
+I use it to securely connect servers together across locations and to access my home network from anywhere. It allows me to use local services without exposing them to the internet. 
+
+### Setup Diagram
+
+*A is the main hub. (B, C, D) all connect to A as peers. (A, B) connect directly to each other. (C, D) choose between full or split tunnels.*
+
+![Setup Diagram](setup-diagram.svg)
+
+- A - ```OptiPlex 5080``` located at home
+- B - ```PowerEdge T340``` located at work
+- C - ```Phone``` located anywhere
+- D - ```Laptop``` located anywhere
+
+
 
 ## Access
 - Android: WireGuard app  
@@ -10,9 +25,8 @@ I use it on my server to securely access my home network from anywhere. It allow
 Download: https://www.wireguard.com/install/
 
 ## Setup
-*COMPLETED 01/01/2026*
-
-Assuming firewall already configured
+*COMPLETED 01/01/2026*   
+*UPDATED 14/06/2026*
 
 Install Wireguard
 ```bash
@@ -25,13 +39,15 @@ Generate new keys
 wg genkey | sudo tee /etc/wireguard/server_private.key | wg pubkey | sudo tee /etc/wireguard/server_public.key
 ```
 
+```/etc/wireguard/``` is secure by default, so you cannot ```cd``` into it
+
 View generated keys
 ```bash
-sudo cat /etc/wireguard/server_public.key # SAVE OUTPUT FOR LATER
-sudo cat /etc/wireguard/server_private.key # SAVE OUTPUT FOR LATER
+sudo cat /etc/wireguard/server_public.key
+sudo cat /etc/wireguard/server_private.key
 ```
 
-Create config file
+Create wireguard config file
 ```bash
 sudo nano /etc/wireguard/wg0.conf
 ```
@@ -46,9 +62,10 @@ PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -t nat -D POSTROUTING -
 ```
 - Replace ```<Server_Private_Key>``` with the private key generated   
 - Replace ```<Interface>``` with your [ethernet interface name](#identify-ethernet-interface-name)
-- Save and exit
 
-Enable IP Forwarding
+### MAIN SERVER ONLY
+
+Enable IP Forwarding (required for full tunnel)
 ```bash
 # Enable now
 sudo sysctl -w net.ipv4.ip_forward=1
@@ -58,15 +75,17 @@ echo "net.ipv4.ip_forward=1" | sudo tee -a /etc/sysctl.conf
 sudo sysctl -p
 ```
 
-Allow on firewall
+### MAIN AND OTHER SERVERS
+
+Allow wireguard on firewall
 ```bash
 sudo ufw allow 51820/udp
 sudo ufw reload
 sudo ufw status
 ```
-*also [port forward](#port-forward) 51820/udp*
+*remember to **[port forward ](#port-forward) 51820/udp***
 
-Enable Wireguard at boot
+Enable Wireguard to start on boot
 ```bash
 sudo systemctl enable wg-quick@wg0
 ```
@@ -77,56 +96,69 @@ sudo systemctl status wg-quick@wg0
 sudo wg show
 ```
 
-## Adding Peers (devices)
-Generate a new set of keys
-```bash
-wg genkey | sudo tee /etc/wireguard/client_private.key | wg pubkey | sudo tee /etc/wireguard/client_public.key
-```
+## Adding Peers
 
-View newly generated keys
-```bash
-sudo cat /etc/wireguard/client_public.key # SAVE OUTPUT FOR LATER
-sudo cat /etc/wireguard/client_private.key # SAVE OUTPUT FOR LATER
-```
+For each new peer, generate a new set of keys. Keys can be generated automatically though the Wireguard app, or manually generated though the server. Each peer needs to be added to the server config file before a tunnel connection can be established.
 
-Open config to add new peer
+Open server wireguard config
 ```bash
 sudo nano /etc/wireguard/wg0.conf
 ```
 
-Add peer to the bottom
+Add new peer to the bottom
 ```ini
 # previous config above ...
 
 [Peer]
 PublicKey = <Client_Public_Key>
-AllowedIPs = 10.0.0.2/32
+AllowedIPs = 10.0.0.3/32
 ```
 - Replace ```<Client_Public_Key>``` with the new private key generated   
-- Each peer needs a unique AllowedIPs. (For example, ```10.0.0.2/32```, ```10.0.0.3/32```...)
-- Save and exit
+- Each peer needs a unique AllowedIPs. (For example: ```10.0.0.3/32```, ```10.0.0.4/32```, etc.)
 
-## Connecting to Wireguard
+## Connecting to Server
 - Android: WireGuard app  
 - Windows: WireGuard desktop client  
 
 Download: https://www.wireguard.com/install/
 
-Create new tunnel
+Clients can connect using different types of tunnels.
+
+### Full tunnel
+AllowedIPs = 0.0.0.0/0 - all traffic through VPN, A NATs to internet
+
 ```ini
 [Interface]
 PrivateKey = <Client_Private_Key>
-Address = 10.0.0.2/32
+Address = 10.0.0.3/32
 DNS = 1.1.1.1
 
 [Peer]
 PublicKey = <Server_Public_Key>
 Endpoint = <Server_Public_IP>:51820
-AllowedIPs = 0.0.0.0/0
-PersistentKeepalive = 25
+AllowedIPs = 0.0.0.0/0, ::/0
 ```
 - Replace ```<Client_Private_Key>``` to match peer config
-- Replace ```10.0.0.2/32``` to match peer config
+- Replace ```10.0.0.3/32``` to match peer config
+- Replace ```<Server_Public_IP>``` with your server IP or subdomain
+- Update AllowedIPs to match yours
+
+### Split tunnel
+
+AllowedIPs = 10.0.0.0/24 - only VPN subnet routed, internet stays local
+
+```ini
+[Interface]
+PrivateKey = <Client_Private_Key>
+Address = 10.0.0.3/32
+
+[Peer]
+PublicKey = <Server_Public_Key>
+Endpoint = <Server_Public_IP>:51820
+AllowedIPs = 10.0.0.0/24
+```
+- Replace ```<Client_Private_Key>``` to match peer config
+- Replace ```10.0.0.3/32``` to match peer config
 - Replace ```<Server_Public_IP>``` with your server IP or subdomain
 - Update AllowedIPs to match yours
 
