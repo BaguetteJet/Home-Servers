@@ -16,8 +16,6 @@ I use it to securely connect servers together across locations and to access my 
 - C - ```Phone``` located anywhere
 - D - ```Laptop``` located anywhere
 
-
-
 ## Access
 - Android: WireGuard app  
 - Windows: WireGuard desktop client  
