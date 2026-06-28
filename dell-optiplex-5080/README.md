@@ -1,8 +1,8 @@
 # Dell OptiPlex 5080 MFF
 
-Machine 01 - 2025-12-31
+*Machine 01 - 31 Dec 2025*
 
-The Dell OptiPlex 5080 Micro Form Factor (MFF) serves as an energy-efficient, whisper-quiet workhorse with an incredibly small physical footprint.
+The Dell OptiPlex 5080 Micro Form Factor (MFF) is an small but capable desktop capable of running multiple services at once. It it quiet and power efficient.
 
 ## Hardware Specs
 

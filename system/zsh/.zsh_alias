@@ -1,0 +1,10 @@
+# Ollama prefix for commands into container
+alias ollama='podman exec -it ollama ollama'
+
+# SERVER 01 (OPTIPLEX 5080) ONLY
+# Basic computer temps (install lm-sensors)
+alias temps='s=$(sensors); echo "CPU:  $(echo "$s" | grep Package | awk "{print \$4}")"; echo "NVMe: $(echo "$s" | grep Composite | awk "{print \$2}")"; echo "Fan:  $(echo "$s" | grep fan1 | awk "{print \$2, \$3}")"'
+
+# SERVER 02 (POWEREDGE T340) ONLY
+# Basic computer temps (install lm-sensors)
+alias temps='s=$(sensors); cpu=$(echo "$s" | awk "/Package id 0/ {print \$4}"); pch=$(echo "$s" | awk "/temp1/ {print \$2}"); echo "CPU: $cpu"; echo "PCH: $pch"'

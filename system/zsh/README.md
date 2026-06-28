@@ -59,24 +59,17 @@ chsh -s $(which zsh)
 ```
 
 ## Add Alias
-Add to bottom of config
+Add to bottom of config file
 ```bash
 nano ~/.zshrc
+```
+
+Reload changes
+```bash
 source ~/.zshrc
 ```
 
-### List of Alias
-```bash
-# Basic computer temps (OPTIPLEX 5080) (install lm-sensors)
-alias temps='s=$(sensors); echo "CPU:  $(echo "$s" | grep Package | awk "{print \$4}")"; echo "NVMe: $(echo "$s" | grep Composite | awk "{print \$2}")"; echo "Fan:  $(echo "$s" | grep fan1 | awk "{print \$2, \$3}")"'
-
-# Basic computer temps (POWEREDGE T340) (install lm-sensors)
-alias temps='s=$(sensors); cpu=$(echo "$s" | awk "/Package id 0/ {print \$4}"); pch=$(echo "$s" | awk "/temp1/ {print \$2}"); echo "CPU: $cpu"; echo "PCH: $pch"'
-
-# Ollama prefix for commands into container
-alias ollama='podman exec -it ollama ollama'
-```
-
+or add `source ~/.zsh_aliases` to the config and create a new file `nano ~/.zsh_aliases` containing your aliases
 
 ## Back to bash?
 Enter zsh

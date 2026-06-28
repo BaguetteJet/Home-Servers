@@ -27,7 +27,7 @@ Brief timeline of my home servers' setup - works as a table of contents.
 - 2026-01-01 [Cockpit](system/cockpit/README.md) - system management
 - 2026-01-01 [Wireguard](system/wireguard/README.md) - private VPN
 - 2026-01-15 [Samba](system/samba/README.md) - file sharing
-- 2026-01-20 [SATA SSD]() - 2.5" drive install
+- 2026-01-20 [SATA SSD](notes/README.md) - 2.5" drive install
 - 2026-01-22 [Podman](system/podman/README.md) - containerization
 - 2026-01-24 [Syncthing](system/syncthing/README.md) - file synchronization
 - 2026-01-25 [Minecraft](services/minecraft/paper-1.21.11-geyser/README.md) - game server
