@@ -11,7 +11,7 @@ This repository documents my entire setup, including configuration and services.
 
 | Docs | Contents |
 | --------- | -------|
-| [maintenance](maintenance/) | remote access, automatic updates, hardware installation |
+| [notes](notes/) | remote access, automatic updates, hardware installation |
 | [services](services/) | containerized services, game servers, multimedia |
 | [system](system/) | host machine setup, infrastructure, critical services |
 
