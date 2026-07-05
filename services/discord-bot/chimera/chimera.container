@@ -1,5 +1,6 @@
 [Unit]
 Description=Chimera Discord Bot
+Wants=network-online.target
 After=network-online.target
 
 [Container]
@@ -9,10 +10,9 @@ AutoUpdate=registry
 
 WorkingDir=/app
 
-Volume=%h/discord-bots/chimera/repo:/app:Z
-EnvironmentFile=%h/discord-bots/chimera/repo/.env
+EnvironmentFile=%h/discord-bots/chimera/.env
 
-# fix terminal colour for Cockpit and run main script
+# fix terminal colour and run main script
 Exec=/usr/bin/script -q -c "python -u bot.py" /dev/null
 
 [Service]
