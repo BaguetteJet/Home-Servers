@@ -44,7 +44,7 @@ This assumes you already have a ```Containerfile``` ([example](../../services/di
 
 ### Setup on server
 
-Create Personal Access Token (PAT) 
+Create [Personal Access Token (PAT)](https://github.com/settings/tokens)
 
 GitHub > Settings > Developer settings > Personal access tokens > Tokens (classic) > New token > tick read:packages > generate and copy it
 

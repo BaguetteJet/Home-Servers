@@ -6,7 +6,7 @@ The NAS contained 4x 2TB HDD drives in a RAID 10 configuraion.
 
 I wanted recover the old data from these drives before repurposing them for personal storage.
 
-## 1. Prepare For Recovery
+## 1. Prepare for recovery
 
 Using [Dell PowerEdge T340](../README.md)
 
@@ -26,7 +26,7 @@ Set PERC controller to HBA mode or set each disk to Non-RAID before booting. Fai
 
 Boot into Ubuntu Server
 
-## 2. Raw Drive Info
+## 2. Discover device info
 Read information about available drives and their partitions
 ```bash
 lsblk
@@ -98,8 +98,8 @@ Each disk contains
 
 Only the **User Data** partition is relevant, the others may be ignored.
 
-## 3. Verify Arrays
-Verify if the kernel can automatically detect array partitions
+## 3. Verify arrays
+Verify if the kernel can automatically detect array partitions and check the array health
 ```bash
 cat /proc/mdstat
 ```
@@ -121,7 +121,9 @@ md127 : active (auto-read-only) raid1 sdd1[2] sdb1[0] sdc1[1] sde1[3]
 unused devices: <none>
 ```
 
-## Temporary Access
+## 4. Setup mount point
+
+### Temporary access
 
 Create mount point
 ```bash
@@ -141,7 +143,7 @@ ls
 
 Copy files to recovery drive or USB
 
-## Permanent Mount
+### Permanent mount
 
 Save array unique signature to mdadm config
 ```bash
@@ -171,6 +173,73 @@ UUID="<array-uuid>" /mnt/wd ext4 defaults,nofail 0 2
 ```
 
 RAID array should mount on reboot now
+
+## 5. Setup backup device
+
+I used an external HDD formatted as exFAT for Linux/Windows compatibility. Ensure device has sufficient space.
+
+Plug in the external HDD into a 3.0 USB port (usually blue)
+
+Create mount point
+```bash
+sudo mkdir -p /mnt/wdbackup
+```
+
+Find device
+```bash
+lsblk -f
+```
+(`sdg1` in my case)
+
+Since exFAT does not store Linux ownership/permissions, mount drive with your user owning the files
+```bash
+sudo mount -t exfat -o uid=$(id -u),gid=$(id -g) /dev/sdg1 /mnt/wdbackup
+```
+
+Show disk filesystem usage to check mounted correctly
+```bash
+df -h
+```
+
+## 6. Backup process
+
+Find size of each folder within the array
+```bash
+du -h --max-depth=1 . | sort -h
+```
+
+*sample output:*
+```
+4.0K    ./.systemfile
+12K     ./.groupingDb
+16K     ./lost+found
+16K     ./Public
+40K     ./.!@#$recycle
+104K    ./Nas_Prog
+1.2M    ./.wdphotos
+7.4G    ./.wdmc
+16G     ./WDSync
+22G     ./company
+218G    ./ACERDATA
+395G    ./RIP_ROLAND
+563G    ./COMPANY-MAIN-PC
+1.2T    .
+```
+
+Not all folders contain useful data. Some folders can be omitted. Begin with a smaller folder first and ensure process is successful before moving onto the rest.
+
+Copy folder to backup device
+```bash
+rsync -avh --progress --info=progress2 /mnt/wd/company/ /mnt/wdbackup/company/
+```
+
+`-avh --progress --info=progress2` tells rsync to copy everything recursively while preserving file details where possible (`-a`), show what it is doing in a readable format (`-vh`), and display detailed live transfer progress for each file and the overall copy (`--progress --info=progress2`)
+
+
+```
+sent 16.62G bytes  received 42.80K bytes  90.09M bytes/sec
+total size is 16.62G  speedup is 1.00
+```
 
 ## Notes
 - Drive slot order doesn't matter as mdadm uses metadata UUIDs, but it is good practice to still lable drives.
