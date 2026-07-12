@@ -45,3 +45,4 @@ Brief timeline of my home servers' setup - works as a table of contents.
 - 2026-06-01 [iDRAC](dell-poweredge-t340/idrac/README.md) - remote management
 - 2026-06-04 [RAID recovery](dell-poweredge-t340/wd-dl4100-recovery/README.md) - data from WD DL4100
 - 2026-06-14 [Networking](system/wireguard/README.md) - connecting multiple locations
+- 2026-07-12 [ZFS](dell-poweredge-t340/zfs/README.md) - hard drive manager and storage pool

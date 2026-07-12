@@ -11,9 +11,10 @@ AutoUpdate=registry
 WorkingDir=/app
 
 EnvironmentFile=%h/discord-bots/chimera/.env
+Volume=%h/discord-bots/chimera/data:/app/data
 
 # fix terminal colour and run main script
-Exec=/usr/bin/script -q -c "python -u bot.py" /dev/null
+Exec=/usr/bin/script -qe -c "python -u bot.py" /dev/null
 
 [Service]
 Restart=on-failure

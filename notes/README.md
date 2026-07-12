@@ -6,6 +6,7 @@
 - [Wake On LAN](#wake-on-lan)
 - [Automatic Updates](#automatic-updates)
 - [Mount Drives](#mount-drives)
+- [SMART Tools](#smart-tools)
 - [Internet Issues](#internet-connection-fix)
 
 
@@ -125,6 +126,21 @@ List devices
 lsblk
 ```
 New drive should be visible here, ready for partition
+
+## SMART Tools
+
+S.M.A.R.T. (Self-Monitoring, Analysis, and Reporting Technology) is a diagnostic system inside nearly all hard drives (HDDs) and solid-state drives (SSDs)
+
+Install SMART tools
+```bash
+sudo apt install smartmontools
+```
+
+Check the SMART information
+```bash
+lsblk
+sudo smartctl -a /dev/sda
+```
 
 
 ## Manage Alias
