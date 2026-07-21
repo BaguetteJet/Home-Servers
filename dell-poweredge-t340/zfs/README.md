@@ -68,6 +68,8 @@ lrwxrwxrwx 1 root root    9 Jul 12 16:08 wwn-0x50014ee2befafffa -> ../../sdg
 ```
 
 ## Creating Mirror (2x 1TB)
+Example creates `emc` pool from two drives
+
 Using the drives `/dev/sdf`, `/dev/sdg`
 
 Wipe old drives
@@ -107,16 +109,78 @@ Set defaults
 ```bash
 sudo zfs set compression=lz4 emc
 sudo zfs set atime=off emc
+sudo zfs set xattr=sa emc
 ```
-`lz4` compression is nearly free CPU-wise and often saves real space on backup data   
-`atime=off` stops ZFS from updating "last accessed" timestamps on every read. Disks do less work, pools stay faster, and hardware lasts longer
+`compression=lz4` compression is nearly free CPU-wise and often saves real space on backup data   
+`atime=off` stops ZFS from updating "last accessed" timestamps on every read. Disks do less work, pools stay faster, and hardware lasts longer   
+`xattr=sa` stores file metadata attributes more efficiently inside ZFS for better performance
 
-```bash
-
-```
-
-```bash
-
-```
 
 ## Using ZFS
+
+Example creates `documents` dataset in the `emc` pool
+
+Create dataset
+```bash
+sudo zfs create emc/documents
+```
+
+Ensure user permissions
+```bash
+sudo chown <user>:<user> /mnt/emc/documents
+ls -ld /mnt/emc/documents
+```
+
+Check settings
+```bash
+zfs get compression,atime,xattr emc/documents
+```
+Update if needed
+
+Enable auto snapshots
+```bash
+sudo zfs set com.sun:auto-snapshot=true emc/documents
+```
+
+Share through samba
+
+## Snapshots
+
+Install auto snapshots
+```bash
+sudo apt update
+sudo apt install zfs-auto-snapshot
+```
+
+Adjust how many snapshots to keep
+```bash
+sudo nano /etc/default/zfs-auto-snapshot
+```
+```
+DAILY=7
+WEEKLY=4
+MONTHLY=12
+```
+`HOURLY=24` optionally
+
+Check snapshots
+```bash
+zfs list -t snapshot
+```
+*sample output*
+```
+AME                                                   USED  AVAIL  REFER  MOUNTPOINT
+emc@zfs-auto-snap_frequent-2026-07-21-2245               0B      -    24K  -
+emc/documents@zfs-auto-snap_frequent-2026-07-21-2245     0B      -    24K  -
+```
+**NOTE** pool is listed as snapshot, but excludes datasets. Dataset snapshots need to be enabled per dataset.
+
+Enable auto snapshots on your chosen dataset(s)
+```bash
+sudo zfs set com.sun:auto-snapshot=true emc/documents
+```
+
+Rollback dataset
+```bash
+zfs rollback emc/documents@zfs-auto-snap_frequent-2026-07-21-2245 
+```
