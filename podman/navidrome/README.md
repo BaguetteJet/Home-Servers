@@ -15,8 +15,6 @@ Need to be on server network.
 
 *COMPLETED 04/05/2026*
 
-[Install Podman and Quadlet support](../../../system/podman/README.md)
-
 Assuming you have a Music folder somewhere with .mp3 files.
 
 Create directory for navidrome

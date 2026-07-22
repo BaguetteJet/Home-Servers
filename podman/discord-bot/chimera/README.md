@@ -11,8 +11,6 @@ Discord APP ```Chimera V#0141```
 *COMPLETED 17/04/2026*   
 *UPDATED 13/05/2026*   
 
-[Install Podman and Quadlet support](../../../system/podman/README.md)
-
 [Setup GitHub connection and enable auto image build/update](../../../system/git/README.md)
 
 ### Repository

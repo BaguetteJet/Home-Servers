@@ -1,5 +1,5 @@
 # Podman
-This directory contains non-essential services managed using [podman and quadlets](../../../system/podman/README.md), most of which run 24/7.
+This directory contains non-essential services managed using podman and quadlets, most of which run 24/7.
 
 Podman is an open-source, daemonless container engine for managing containers and images. It is designed as a secure, rootless alternative to Docker. Containers are used to package applications with all their dependencies so they run consistently and in isolation across different environments. An image is a lightweight, read-only, and standalone executable template used to create containers. It includes everything needed to run an application, such as code, libraries, configuration files, and dependencies.
 

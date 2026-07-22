@@ -11,8 +11,6 @@ Players on the same network as the server use ```localhost``` instead of ```serv
 
 ## Setup
 
-[Install Podman and Quadlet support](../../../system/podman/README.md)
-
 Allow ports in firewalll
 ```bash
 sudo ufw allow 25565/tcp
