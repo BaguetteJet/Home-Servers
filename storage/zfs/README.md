@@ -152,16 +152,17 @@ sudo apt update
 sudo apt install zfs-auto-snapshot
 ```
 
-Adjust how many snapshots to keep
+Check snapshot frequency
 ```bash
-sudo nano /etc/default/zfs-auto-snapshot
+grep keep /etc/cron*/*zfs-auto-snapshot
 ```
+
+Adjust how many snapshots to keep
+
+Example: change kept `daily` snapshots from `31` to `7`
+```bash
+sudo sed -i 's/--label=daily --keep=31/--label=daily --keep=7/' /etc/cron.daily/zfs-auto-snapshot
 ```
-DAILY=7
-WEEKLY=4
-MONTHLY=12
-```
-`HOURLY=24` optionally
 
 Check snapshots
 ```bash

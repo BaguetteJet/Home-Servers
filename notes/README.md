@@ -7,8 +7,9 @@
 - [Automatic Updates](#automatic-updates)
 - [Mount Drives](#mount-drives)
 - [SMART Tools](#smart-tools)
+- [Manage Alias](#manage-alias)
 - [Internet Issues](#internet-connection-fix)
-
+- [Display Images](#display-images)
 
 ## Remote Server Access
 
@@ -26,7 +27,7 @@ ssh <user>@<server-ip>
 pause
 ```
 
-SSH ProxyJump feature can be used to connect to Server 02 through Server 01, allowing you to access the 2nd server easily over a Wireguard tunnel
+SSH ProxyJump feature can be used to ssh into another server over a Wireguard connection
 ```bat
 @echo off
 ssh -J <user>@<server01-ip> <user>@<server02-wg-ip>
@@ -55,7 +56,7 @@ $udp.Close()
 
 ## Automatic Updates
 
-Automatic updates on Linux are crucial for maintaining security, stability, and performance by automatically patching vulnerabilities and fixing bugs without manual intervention. They ensure systems remain protected against emerging threats, which is especially vital for servers.
+Automatic updates on Linux are important for maintaining security, stability, and performance by automatically patching vulnerabilities and fixing bugs without manual intervention. They ensure systems remain protected against emerging threats, which is especially vital for servers.
 
 *COMPLETED 31/12/2025*  
 
@@ -72,28 +73,24 @@ cd /etc/apt/apt.conf.d
 ls
 ```
 
-Update this config file
+Update config file
 ```bash
 sudo nano 50unattended-upgrades
 ```
 
 Press Shirt+W and enter ```automatic-reboot``` into search
 
-Find line ```//Unattended-Upgrade::Automatic-Reboot-WithUsers "false";```
+Uncomment ```//Unattended-Upgrade::Automatic-Reboot-WithUsers "false";```, change ```false``` to ```true```
 
-Uncomment line by removing ```//``` and change ```false``` to ```true```
-
-Scroll down, find line ```//Unattended-Upgrade::Automatic-Reboot-Reboot-Time "02:00";```
-
-Uncomment line by removing ```//``` and change the time to when you would like the occasionally required automatic reboots to happen at (for example, "05:00")
+Scroll down, uncomment ```//Unattended-Upgrade::Automatic-Reboot-Reboot-Time "02:00";```. Change time of occasional required automatic reboots.
 
 Save and exit
 
-Check another config file
+Check other config file
 ```bash
 sudo nano 20auto-upgrades
 ```
-Ensure both lines are set to "1"
+Ensure both lines are set to `1`
 
 Save and exit
 
@@ -142,7 +139,6 @@ lsblk
 sudo smartctl -a /dev/sda
 ```
 
-
 ## Manage Alias
 Alias are shortcuts in the terminal. Access and modify them here:
 ```bash
@@ -150,7 +146,7 @@ nano ~/.bashrc
 # scroll to bottom, add alias, save file
 source ~/.bashrc
 ```
-As of 16/05/2026 I have switched to Z shell but still import alias from .bashrc
+**NOTE** 16/05/2026 I switched to Z shell :P
 
 ## Internet Connection Fix
 
@@ -175,8 +171,21 @@ sudo nano /etc/netplan/*.yaml
 
 change to `via: "192.168.1.254"` instead
 
-
 Apply changes
 ```bash
 sudo netplan apply
 ```
+
+## Display Images
+Display images in terminal using chafa
+
+Install
+```bash
+sudo apt install chafa
+```
+
+Display image
+```bash
+chafa <image-path>
+```
+

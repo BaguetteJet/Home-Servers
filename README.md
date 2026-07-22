@@ -21,28 +21,28 @@ Brief timeline of my home servers' setup - works as a table of contents.
 2025
 - 2025-12-31 [Dell OptiPlex 5080](dell-optiplex-5080/README.md) - machine 01
 - 2025-12-31 [Ubntu Server](system/os/README.md) - OS installation and configuration
-- 2025-12-31 [Firewall](system/firewall/README.md) - UFW configuration
+- 2025-12-31 [Firewall](network/firewall/README.md) - UFW configuration
 
 2026
 - 2026-01-01 [Cockpit](system/cockpit/README.md) - system management
-- 2026-01-01 [Wireguard](system/wireguard/README.md) - private VPN
-- 2026-01-15 [Samba](system/samba/README.md) - file sharing
+- 2026-01-01 [Wireguard](network/wireguard/README.md) - private VPN
+- 2026-01-15 [Samba](storage/samba/README.md) - file sharing
 - 2026-01-20 [SATA SSD](notes/README.md) - 2.5" drive install
-- 2026-01-22 [Podman](system/podman/README.md) - containerization
-- 2026-01-24 [Syncthing](system/syncthing/README.md) - file synchronization
-- 2026-01-25 [Minecraft](services/minecraft/paper-1.21.11-geyser/README.md) - game server
-- 2026-01-28 [Hytale](services/hytale/README.md) - game server
-- 2026-04-10 [Ollama](services/ollama/README.md) - local LLMs
-- 2026-04-17 [Open WebUI](services/open-webui/README.md) - LLM interface
+- 2026-01-22 [Podman](podman/README.md) - containerization
+- 2026-01-24 [Syncthing](storage/syncthing/README.md) - file synchronization
+- 2026-01-25 [Minecraft](podman/minecraft/paper-1.21.11-geyser/README.md) - game server
+- 2026-01-28 [Hytale](podman/hytale/README.md) - game server
+- 2026-04-10 [Ollama](podman/ollama/README.md) - local LLMs
+- 2026-04-17 [Open WebUI](podman/open-webui/README.md) - LLM interface
 - 2026-04-27 [Git](system/git/README.md) - GitHub connection
-- 2026-04-27 [Chimera](services/discord-bot/chimera/README.md) - discord bot
-- 2026-05-04 [Navidrome](services/navidrome/README.md) - music streaming
-- 2026-05-06 [Cloudflare DDNS](system/cloudflare-ddns/README.md) - dynamic dns
+- 2026-04-27 [Chimera](podman/discord-bot/chimera/README.md) - discord bot
+- 2026-05-04 [Navidrome](podman/navidrome/README.md) - music streaming
+- 2026-05-06 [Cloudflare DDNS](network/cloudflare-ddns/README.md) - dynamic dns
 - 2026-05-11 [Audio](dell-optiplex-5080/audio/README.md) - system speakers
 - 2026-05-16 [Z shell](system/zsh/README.md) - custom terminal
 - 2026-05-18 [MOTD](system/motd/README.md) - declutter motd
 - 2026-05-30 [Dell PowerEdge T340](dell-poweredge-t340/README.md) - machine 02
 - 2026-06-01 [iDRAC](dell-poweredge-t340/idrac/README.md) - remote management
 - 2026-06-04 [RAID recovery](dell-poweredge-t340/wd-dl4100-recovery/README.md) - data from WD DL4100
-- 2026-06-14 [Networking](system/wireguard/README.md) - connecting multiple locations
-- 2026-07-12 [ZFS](dell-poweredge-t340/zfs/README.md) - hard drive manager and storage pool
+- 2026-06-14 [Networking](network/wireguard/README.md) - connecting multiple locations
+- 2026-07-12 [ZFS](storage/zfs/README.md) - hard drive manager and storage pool
