@@ -11,9 +11,11 @@ This repository documents my entire setup, including configuration and services.
 
 | Docs | Contents |
 | --------- | -------|
-| [notes](notes/) | remote access, automatic updates, hardware installation |
-| [services](services/) | containerized services, game servers, multimedia |
-| [system](system/) | host machine setup, infrastructure, critical services |
+| [notes](notes/) | general knowledge, remote access, automatic updates, and troubleshooting |
+| [podman](podman/) | containerized services, game servers, and multimedia applications |
+| [network](network/) | vpn, firewall, ddns, and network configuration |
+| [storage](storage/) | storage configurations, backups, and data sharing |
+| [system](system/) | system setup, shell configuration, and administration |
 
 ## History
 Brief timeline of my home servers' setup - works as a table of contents.
