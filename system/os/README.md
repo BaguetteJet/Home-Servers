@@ -51,7 +51,7 @@ Reboot now
 
 ## Automatic updates
 
-See [how to setup automatic updates](../../maintenance/README.md)
+See [how to setup automatic updates](../../notes/README.md)
 
 ## Running OS from USB
 
