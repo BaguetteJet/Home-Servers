@@ -1,0 +1,26 @@
+Description=<your-server-name>
+After=network-online.target
+
+[Container]
+ContainerName=<your-server-name>
+Image=docker.io/itzg/minecraft-server:java25
+PublishPort=25565:25565/tcp
+PublishPort=25565:25565/udp
+UserNS=keep-id
+
+Environment=EULA=TRUE
+Environment=TYPE=PAPER
+Environment=MEMORY=4G
+Environment=VERSION=26.3
+Environment=CREATE_CONSOLE_IN_PIPE=TRUE
+
+Volume=%h/minecraft-servers/<your-server-name>:/data:Z
+
+# needed for typing commands into the Minecraft console
+PodmanArgs=--interactive --tty
+
+[Service]
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

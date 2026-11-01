@@ -25,7 +25,7 @@ Run `setup.sh` to install automatically
 
 Alternatively
 
-Create directory for navidrome
+Create directory for minecraft server files
 ```bash
 mkdir ~/minecraft-servers/paper-mc-geyser
 ```
@@ -67,7 +67,7 @@ WantedBy=default.target
 Reload daemons and start service
 ```bash
 systemctl --user daemon-reload
-systemctl --user start hytale.service
+systemctl --user start paper-mc-geyser.service
 ```
 
 Download required [plugins](#required-plugins) and drop them into the ```/plugins``` folder
