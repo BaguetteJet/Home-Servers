@@ -70,3 +70,11 @@ Remember to also update the quadlet image
 ```ini
 Image=ghcr.io/<user>/<repository>:latest
 ```
+
+### Troubleshoot
+
+Check if token expired
+
+```bash
+podman auto-update --dry-run
+```
