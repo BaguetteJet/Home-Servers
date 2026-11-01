@@ -177,7 +177,7 @@ sudo netplan apply
 ```
 
 ## Display Images
-Display images in terminal using chafa
+Display images in terminal using [chafa](https://github.com/hpjansson/chafa)
 
 Install
 ```bash
@@ -189,3 +189,15 @@ Display image
 chafa <image-path>
 ```
 
+## Neofetch
+Neofetch displays your system information (OS, kernel, CPU, memory, uptime, etc.) with an ASCII logo in the terminal
+
+Install
+```bash
+sudo apt install neofetch
+```
+
+Run command
+```bash
+neofetch
+```
